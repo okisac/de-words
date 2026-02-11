@@ -1,32 +1,30 @@
+require("dotenv").config();
 const express = require("express");
-const { Pool } = require("pg"); // mysql2 yerine pg kullanıyoruz
+const { Pool } = require("pg");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
-// Postgres Bağlantı Ayarları (Lokal için)
+// Static dosyaları sun (HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, "public")));
+
+// Postgres Bağlantı
 const pool = new Pool({
-  user: "a", // Mac'teki Postgres kullanıcı adın (genelde postgres)
-  host: "localhost",
-  database: "words", // Veritabanı adın
-  password: "root", // Şifren
-  port: 5432, // Postgres varsayılan portu 5432'dir
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
 });
 
-// Bağlantı Kontrolü
-pool.connect((err) => {
-  if (err) {
-    console.error("Postgres bağlantı hatası:", err.stack);
-  } else {
-    console.log("Postgres’e bağlanıldı!");
-  }
+// Ana sayfa
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "main.html"));
 });
 
-// Kelime ekleme endpointi
+// Kelime ekleme
 app.post("/addWord", async (req, res) => {
   const { de, tr } = req.body;
   try {
@@ -36,33 +34,33 @@ app.post("/addWord", async (req, res) => {
     );
     res.json({ success: true, id: result.rows[0].id });
   } catch (err) {
-    console.error("Postgres insert hatası:", err);
-    res.status(500).send(err);
+    console.error("Insert hatası:", err);
+    res.status(500).json({ error: err.message });
   }
 });
 
-// Son 5 kelimeyi getiren endpoint
+// Son 5 kelime
 app.get("/lastWords", async (req, res) => {
   try {
     const result = await pool.query(
       "SELECT * FROM sozluk ORDER BY created_at DESC LIMIT 5",
     );
-    res.send(result.rows);
+    res.json(result.rows);
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
-// Tüm kelimeleri getiren endpoint
+// Tüm kelimeler
 app.get("/allWords", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM sozluk");
-    res.send(result.rows);
+    res.json(result.rows);
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Server çalışıyor: http://localhost:${PORT}`);
+  console.log(`Server çalışıyor: Port ${PORT}`);
 });
