@@ -1,77 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <section id="show">
-      <div class="slogan">Lern mehr Wörter!</div>
-      <div class="tickets">
-        <div id="t_de" class="ticket"></div>
-        <div id="t_tr" class="ticket">
-          <div id="on_yuz" class="front"></div>
-          <div id="arka_yuz" class="back back_face"></div>
-        </div>
-      </div>
-    </section>
-    <section id="last_words">
-      <div class="word_paare">
-        <div class="de1"></div>
-        <div>:</div>
-        <div class="tr1"></div>
-      </div>
 
-      <div class="word_paare">
-        <div class="de1"></div>
-        <div>:</div>
-        <div class="tr1"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <section id="show">
+    <div class="slogan">Lern mehr Wörter!</div>
+    <div class="tickets">
+      <div id="t_de" class="ticket"></div>
+      <div id="t_tr" class="ticket">
+        <div id="on_yuz" class="front"></div>
+        <div id="arka_yuz" class="back back_face"></div>
       </div>
-      <div class="word_paare">
-        <div class="de1"></div>
-        <div>:</div>
-        <div class="tr1"></div>
+    </div>
+  </section>
+  <section id="last_words">
+    <div class="word_paare">
+      <div class="de1"></div>
+      <div>:</div>
+      <div class="tr1"></div>
+    </div>
+
+    <div class="word_paare">
+      <div class="de1"></div>
+      <div>:</div>
+      <div class="tr1"></div>
+    </div>
+    <div class="word_paare">
+      <div class="de1"></div>
+      <div>:</div>
+      <div class="tr1"></div>
+    </div>
+    <div class="word_paare">
+      <div class="de1"></div>
+      <div>:</div>
+      <div class="tr1"></div>
+    </div>
+    <div class="word_paare">
+      <div class="de1"></div>
+      <div>:</div>
+      <div class="tr1"></div>
+    </div>
+  </section>
+  <section id="save">
+    <div class="add_word">
+      <div class="input_line">
+        <label>Deutsch</label>
+        <input type="text" id="de_input" placeholder="Deutsches Wort" class="word_input" />
       </div>
-      <div class="word_paare">
-        <div class="de1"></div>
-        <div>:</div>
-        <div class="tr1"></div>
+      <div class="input_line">
+        <label>Turkisch</label>
+        <input type="text" id="tr_input" placeholder="Bedeutung auf Turkisch" class="word_input" />
       </div>
-      <div class="word_paare">
-        <div class="de1"></div>
-        <div>:</div>
-        <div class="tr1"></div>
+      <div class="input_line">
+        <button class="gonder" id="submit">
+          <span> Submit </span>
+        </button>
       </div>
-    </section>
-    <section id="save">
-      <div class="add_word">
-        <div class="input_line">
-          <label>Deutsch</label>
-          <input
-            type="text"
-            id="de_input"
-            placeholder="Deutsches Wort"
-            class="word_input"
-          />
-        </div>
-        <div class="input_line">
-          <label>Turkisch</label>
-          <input
-            type="text"
-            id="tr_input"
-            placeholder="Bedeutung auf Turkisch"
-            class="word_input"
-          />
-        </div>
-        <div class="input_line">
-          <button class="gonder" id="submit">
-            <span> Submit </span>
-          </button>
-        </div>
-      </div>
-    </section>
-    <script src="work.js"></script>
-  </body>
+    </div>
+  </section>
+  <script src="/work.js"></script>
+</body>
+
 </html>

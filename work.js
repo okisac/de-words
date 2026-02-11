@@ -20,7 +20,7 @@ function add_word() {
     return;
   }
 
-  fetch("http://localhost:3000/addWord", {
+  fetch("/addWord", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ de: de_word, tr: tr_word }),
@@ -59,7 +59,7 @@ function checkFontSizes() {
 }
 
 function show_last_words() {
-  fetch("http://localhost:3000/lastWords")
+  fetch("/lastWords")
     .then((res) => res.json())
     .then((last_five) => {
       const listSection = document.getElementById("last_words");
@@ -81,7 +81,7 @@ function show_last_words() {
 }
 
 function showRandomWord() {
-  fetch("http://localhost:3000/allWords")
+  fetch("/allWords")
     .then((res) => res.json())
     .then((allWords) => {
       if (allWords.length === 0) return;
