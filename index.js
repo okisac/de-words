@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // Static dosyaları sun (HTML, CSS, JS)
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname)));
 
 // Postgres Bağlantı
 const pool = new Pool({
@@ -21,7 +21,7 @@ const pool = new Pool({
 
 // Ana sayfa
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "main.html"));
+  res.sendFile(path.join(__dirname, "main.html"));
 });
 
 // Kelime ekleme
