@@ -4,11 +4,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>MemoryFlip</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <header class="topbar">
+    <div class="toprow">
+      <div class="brand">
+        <h1>MemoryFlip</h1>
+        <nav><button id="about-btn" class="about-btn" aria-expanded="false">Über</button>
+          <button id="built-with-btn" class="about-btn" aria-expanded="false">Erstellt mit</button>
+        </nav>
+      </div>
+
+    </div>
+    <div id="about-panel" class="about-panel" aria-hidden="true">
+      <div class="about-content">
+        <p>Diese Webanwendung hilft beim Lernen von deutschen und türkischen Wörtern:</p>
+        <ul>
+          <li>Es werden neue Wortpaare hinzugefügt.</li>
+          <li>Die letzten 5 hinzugefügten Paare werden auf dem Bildschirm angezeigt.</li>
+          <li>Aus allen hinzugefügten Wörtern wird ein zufälliges Paar auf dem Bildschirm angezeigt.</li>
+          <li>Zuerst wird das deutsche Wort angezeigt. Der Benutzer versucht, die Bedeutung zu erraten.</li>
+          <li>Dann wird das türkische Wort angezeigt.</li>
+          <li>Dieser Vorgang wird wiederholt.</li>
+        </ul>
+        <hr>
+        <p><Strong>About</Strong><br><br>This web application helps you learn German-Turkish vocabulary:</p>
+        <ul>
+          <li>New word pairs are added.</li>
+          <li>The last 5 pairs added are displayed on the screen.</li>
+          <li>A random pair is displayed on the screen from all the words added.</li>
+          <li>The German word is displayed first. The user tries to guess its meaning.</li>
+          <li>Then the Turkish word is displayed.</li>
+          <li>This process repeats.</li>
+        </ul>
+      </div>
+    </div>
+    <div id="built-with-panel" class="built-with-panel" aria-hidden="true">
+      <div class="built-with-content">
+        <p>Entwickelt mit HTML, CSS und JS. Backend mit Node.js, Datenbankmanagement über PostgreSQL auf Supabase.
+          Veröffentlicht (Deployed) über Render.</p>
+        <hr>
+        <p><Strong>Tech Stack</Strong><br><br>Developed with HTML, CSS, and JS. Backend with Node.js, database
+          management via
+          PostgreSQL on Supabase. Deployed via Render.</p>
+        </ul>
+      </div>
+    </div>
+  </header>
   <section id="show">
     <div class="slogan">Lern mehr Wörter!</div>
     <div class="tickets">

@@ -120,6 +120,107 @@ window.addEventListener("DOMContentLoaded", () => {
   show_last_words(); // Sayfa açılır açılmaz son 5 kelimeyi getir
   showRandomWord();
   startRandomWordLoop();
+
+  // Panel/button pairs to manage
+  const aboutBtn = document.getElementById("about-btn");
+  const aboutPanel = document.getElementById("about-panel");
+  const builtBtn = document.getElementById("built-with-btn");
+  const builtPanel = document.getElementById("built-with-panel");
+
+  const pairs = [
+    { btn: aboutBtn, panel: aboutPanel },
+    { btn: builtBtn, panel: builtPanel },
+  ];
+
+  let _outsideClickHandler = null;
+
+  function anyPanelVisible() {
+    return pairs.some((p) => p.panel && p.panel.classList.contains("visible"));
+  }
+
+  function openPanel(btn, panel) {
+    if (!btn || !panel) return;
+    // Close other panels first
+    pairs.forEach((p) => {
+      if (p.panel && p.panel !== panel) closePanel(p.btn, p.panel);
+    });
+
+    panel.classList.add("visible");
+    btn.setAttribute("aria-expanded", "true");
+    panel.setAttribute("aria-hidden", "false");
+
+    // Position centered under the button
+    const btnRect = btn.getBoundingClientRect();
+    const panelWidth = panel.offsetWidth || 320;
+    let left = Math.round(btnRect.left + btnRect.width / 2 - panelWidth / 2);
+    const minLeft = 8;
+    const maxLeft = window.innerWidth - panelWidth - 8;
+    if (left < minLeft) left = minLeft;
+    if (left > maxLeft) left = maxLeft;
+    const top = Math.round(btnRect.bottom + 8);
+    panel.style.left = left + "px";
+    panel.style.top = top + "px";
+
+    // Add outside click handler if not present
+    if (!_outsideClickHandler) {
+      _outsideClickHandler = (e) => {
+        // if click is outside all visible panels and their buttons, close all
+        const clickedInsideAny = pairs.some((p) => {
+          return (
+            (p.panel && p.panel.classList.contains("visible") && p.panel.contains(e.target)) ||
+            (p.btn && p.btn.contains(e.target))
+          );
+        });
+        if (!clickedInsideAny) {
+          pairs.forEach((p) => {
+            if (p.panel && p.panel.classList.contains("visible")) closePanel(p.btn, p.panel);
+          });
+        }
+      };
+      document.addEventListener("click", _outsideClickHandler);
+    }
+    // Add Esc key handling to close panels
+    if (!document._panelEscHandler) {
+      document._panelEscHandler = (ev) => {
+        if (ev.key === "Escape") {
+          pairs.forEach((p) => {
+            if (p.panel && p.panel.classList.contains("visible")) closePanel(p.btn, p.panel);
+          });
+        }
+      };
+      document.addEventListener("keydown", document._panelEscHandler);
+    }
+  }
+
+  function closePanel(btn, panel) {
+    if (!btn || !panel) return;
+    panel.classList.remove("visible");
+    btn.setAttribute("aria-expanded", "false");
+    panel.setAttribute("aria-hidden", "true");
+    // remove handler if no panels visible
+    if (!anyPanelVisible() && _outsideClickHandler) {
+      document.removeEventListener("click", _outsideClickHandler);
+      _outsideClickHandler = null;
+      // remove Esc handler when no panels visible
+      if (document._panelEscHandler) {
+        document.removeEventListener("keydown", document._panelEscHandler);
+        document._panelEscHandler = null;
+      }
+    }
+  }
+
+  // Attach click listeners to each button
+  pairs.forEach((p) => {
+    if (!p.btn || !p.panel) return;
+    p.btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (p.panel.classList.contains("visible")) {
+        closePanel(p.btn, p.panel);
+      } else {
+        openPanel(p.btn, p.panel);
+      }
+    });
+  });
 });
 
 function startRandomWordLoop() {
