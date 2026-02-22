@@ -167,13 +167,16 @@ window.addEventListener("DOMContentLoaded", () => {
         // if click is outside all visible panels and their buttons, close all
         const clickedInsideAny = pairs.some((p) => {
           return (
-            (p.panel && p.panel.classList.contains("visible") && p.panel.contains(e.target)) ||
+            (p.panel &&
+              p.panel.classList.contains("visible") &&
+              p.panel.contains(e.target)) ||
             (p.btn && p.btn.contains(e.target))
           );
         });
         if (!clickedInsideAny) {
           pairs.forEach((p) => {
-            if (p.panel && p.panel.classList.contains("visible")) closePanel(p.btn, p.panel);
+            if (p.panel && p.panel.classList.contains("visible"))
+              closePanel(p.btn, p.panel);
           });
         }
       };
@@ -184,7 +187,8 @@ window.addEventListener("DOMContentLoaded", () => {
       document._panelEscHandler = (ev) => {
         if (ev.key === "Escape") {
           pairs.forEach((p) => {
-            if (p.panel && p.panel.classList.contains("visible")) closePanel(p.btn, p.panel);
+            if (p.panel && p.panel.classList.contains("visible"))
+              closePanel(p.btn, p.panel);
           });
         }
       };
