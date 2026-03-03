@@ -131,6 +131,20 @@ section {
   min-height: 0;
 }
 
+/* Main content area between header and footer
+   It expands to fill available vertical space and spaces
+   #show and #last_words vertically (space-around). */
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  flex: 1 1 auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding-block: 1rem;
+}
+
 #show {
   width: 100%;
   margin-top: 1rem;
@@ -232,7 +246,8 @@ section {
 }
 
 #save {
-  margin-top: 1rem;
+  margin-top: 0; /* will be pushed to bottom by #content flex growth */
+  margin-bottom: 12px; /* small gap from viewport bottom */
   width: 66%;
   box-sizing: border-box;
   background: 0% rgba(202, 202, 202, 0.493);
@@ -315,69 +330,61 @@ label {
 #last_words {
   /* background-color: salmon; */
   width: 80%;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
-
-/* .word_paare {
-  background-color: rgba(237, 221, 83, 1);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 80%;
-  box-sizing: content-box;
-  height: 24px;
-  margin-block: 5px;
-  padding: 12px;
-  border-radius: 10px;
-} */
 
 .word_paare {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  width: min(640px, 80%);
-  max-width: 640px;
-  height: 1.5rem;
-  margin-block: 8px;
-  padding: 0.75rem;
+  align-items: flex-start; /* align multi-line text at top */
+  min-width: 50%;
+  width: 80%;
+  height: auto; /* allow rows to grow with content */
+  margin-top: 0.5rem;
+  padding: 0.25rem;
   border-radius: 10px;
   box-sizing: border-box;
+
+  background-color: rgb(146, 146, 146);
+  border: 1px solid rgb(81, 81, 81);
 }
 
 .de1 {
-  flex: 1 1 0; /* eşit pay: büyü, küçül, sıfırdan başla */
-  min-width: 0; /* flex içinde taşmayı önler */
+  flex: 1 1 0; /* grow/shrink */
+  min-width: 0; /* prevent overflow in flex */
   margin-right: 6px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background-color: #e18f1c;
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  text-align: left;
   padding: 4px;
+  background-color: #e18f1c;
+  -webkit-box-orient: vertical;
+  display: -webkit-box; /* enable -webkit-line-clamp */
+  -webkit-line-clamp: 2; /* limit to 2 lines */
+  overflow: hidden;
+  word-break: break-word;
+  font-weight: 500;
+  text-align: left;
+
   border-radius: 5px;
   box-sizing: border-box;
-  position: relative; /* :after'ın doğru konumlanması için */
-  transform: rotate(-1.5deg);
+  position: relative;
+  /* transform: rotate(-1deg); */
 }
 
 .tr1 {
-  width: 60%;
-  /* min-width: 210px; */
-  margin-left: 8px;
-  padding-left: 8px;
-  padding-bottom: 5px;
-  text-wrap: nowrap;
+  flex: 0 0 50%; /* no grow/shrink */
+  min-width: 160px;
+  margin-left: 6px;
+  padding: 4px;
   background-color: #9c71ff;
-  display: flex;
-  font-weight: 550;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-break: break-word;
+  font-weight: 500;
   position: relative;
   border-radius: 5px;
-  transform: rotate(-1.5deg);
-  overflow: hidden;
-  border: 1px solid #0000;
+  /* transform: rotate(-1.5deg); */
+  border: 1px solid transparent;
 }
 
 .tr1:hover {
@@ -410,7 +417,7 @@ label {
 
   #last_words {
     width: 96%;
-    margin: 1rem;
+    margin-top: 1rem;
   }
 
   #save {
@@ -423,13 +430,6 @@ label {
 
   label {
     text-align: right;
-  }
-
-  .word_paare {
-    width: 90%;
-    height: 18px;
-
-    border: 0;
   }
 
   .de1 {
@@ -471,24 +471,20 @@ label {
   }
 
   .word_paare {
-    display: flex;
     width: 100%;
-    height: 18px;
-    margin-inline: auto;
-    border: 0;
-    box-sizing: border-box;
+    padding: 0.25rem;
   }
 
   .de1 {
     font-size: 0.8rem;
     font-weight: 400;
-    transform: rotate(-1deg);
+    -webkit-line-clamp: 3; /* limit to 3 lines */
   }
 
   .tr1 {
     font-size: 0.8rem;
-    font-weight: 350;
-    transform: rotate(-1deg);
+    font-weight: 400;
+    -webkit-line-clamp: 3; /* limit to 3 lines */
   }
 
   #save {
