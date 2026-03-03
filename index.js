@@ -10,6 +10,17 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// SAHTE VERİTABANI (RAM'de tutulur)
+let mockSozluk = [
+  { id: 1, de: "Haus", tr: "Ev" },
+  { id: 2, de: "Apfel", tr: "Elma" },
+  {
+    id: 3,
+    de: "Sehr langes deutsches Wort für Test",
+    tr: "Test için çok uzun bir Türkçe kelime örneği",
+  },
+];
+
 // Static dosyaları sun (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)));
 

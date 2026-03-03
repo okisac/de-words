@@ -1,8 +1,6 @@
 body {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
   margin: 0;
-  overflow-y: hidden;
   overflow-x: hidden;
   font-family:
     ui-sans-serif,
@@ -17,18 +15,13 @@ body {
     sans-serif;
   display: flex;
   flex-direction: column;
-  /* background: linear-gradient(
-    135deg,
-    rgb(19, 83, 161) 5%,
-    rgb(185, 18, 207) 33%,
-    rgb(206, 40, 142) 100%
-  ); */
+  align-items: center;
   background-color: darkgray;
 }
 
 /* Topbar and About panel */
 :root {
-  --header-height: 120px;
+  --header-min-height: 80px;
   --panel-width: 360px;
 }
 
@@ -37,10 +30,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px 16px;
   width: 100%;
   box-sizing: border-box;
-  height: var(--header-height);
+  min-height: var(--header-min-height);
   position: relative;
 }
 
@@ -53,10 +45,13 @@ body {
 }
 
 .brand {
-  color: #fff;
+  color: #ffffff;
   font-weight: 700;
-  font-size: 22px;
   text-align: center;
+}
+
+h1 {
+  color: aqua;
 }
 
 .about-btn {
@@ -66,7 +61,7 @@ body {
   padding: 6px 10px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .about-panel {
@@ -132,14 +127,16 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  min-height: 0;
 }
 
 #show {
-  flex: 1;
-  margin: 10px 10px 6px 10px;
-  min-width: 320px;
+  width: 100%;
+  margin-top: 1rem;
   box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
 }
 
 .slogan {
@@ -182,7 +179,6 @@ section {
   flex-direction: row;
   flex-wrap: wrap; /* Responsive için wrap ekle */
   justify-content: center; /* Ticket'ları ortala */
-  gap: 50px;
   perspective: 1000px; /* 3D efekti için */
 }
 
@@ -190,15 +186,10 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin: 10px;
   padding: 5px;
-  width: 480px;
-  height: 120px;
-  /* background: radial-gradient(
-    circle,
-    rgba(255, 196, 48, 1) 15%,
-    rgba(148, 213, 233, 1) 100%
-  ); */
+  width: 50vmin;
+  height: 100px;
   background-image: linear-gradient(135deg, #f34079 50%, #fc894d);
   color: white;
   border-radius: 20px;
@@ -241,9 +232,9 @@ section {
 }
 
 #save {
-  margin: 10px;
-  padding: 10px;
-  min-width: 320px;
+  margin-top: 1rem;
+  width: 66%;
+  box-sizing: border-box;
   background: 0% rgba(202, 202, 202, 0.493);
   border-radius: 20px;
 }
@@ -260,7 +251,8 @@ section {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* width: 66%; */
+  width: 100%;
+  max-width: 520px;
   margin: 5px;
   padding: 3px;
 }
@@ -270,7 +262,9 @@ section {
   box-sizing: border-box;
   border: 0;
   border-radius: 12px;
-  min-width: 240px;
+  width: 100%;
+  min-width: 0;
+  max-width: 320px;
   padding: 8px;
   background-color: rgb(255, 255, 255);
 }
@@ -315,53 +309,65 @@ label {
   min-width: 60px;
   text-align: right; /* Metinleri sağa hizala */
   padding-right: 10px;
+  font-size: 1rem;
 }
+
+#last_words {
+  /* background-color: salmon; */
+  width: 80%;
+  margin-top: 3rem;
+}
+
+/* .word_paare {
+  background-color: rgba(237, 221, 83, 1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+  box-sizing: content-box;
+  height: 24px;
+  margin-block: 5px;
+  padding: 12px;
+  border-radius: 10px;
+} */
 
 .word_paare {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 640px;
-  height: 24px;
-  margin-block: 5px;
-  padding: 5px;
+  width: min(640px, 80%);
+  max-width: 640px;
+  height: 1.5rem;
+  margin-block: 8px;
+  padding: 0.75rem;
   border-radius: 10px;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 .de1 {
-  width: 30%;
-  /* min-width: 120px; */
-  margin-right: 10px;
-  text-wrap: nowrap;
+  flex: 1 1 0; /* eşit pay: büyü, küçül, sıfırdan başla */
+  min-width: 0; /* flex içinde taşmayı önler */
+  margin-right: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   background-color: #e18f1c;
   display: flex;
-
+  align-items: center;
   font-weight: 700;
   text-align: left;
-  padding-left: 10px;
-  padding-right: 5px;
-  padding-bottom: 5px;
+  padding: 4px;
   border-radius: 5px;
+  box-sizing: border-box;
+  position: relative; /* :after'ın doğru konumlanması için */
   transform: rotate(-1.5deg);
-  /* box-sizing: content-box; */
-}
-.de1:after {
-  border-radius: 5px;
-  content: "";
-  position: absolute;
-  border: 1px solid #000000;
-  bottom: 1px;
-  left: 1px;
-  width: calc(100% - 1px);
-  height: calc(100% - 1px);
 }
 
 .tr1 {
   width: 60%;
   /* min-width: 210px; */
   margin-left: 8px;
-  padding-left: 10px;
+  padding-left: 8px;
   padding-bottom: 5px;
   text-wrap: nowrap;
   background-color: #9c71ff;
@@ -371,32 +377,19 @@ label {
   border-radius: 5px;
   transform: rotate(-1.5deg);
   overflow: hidden;
-  border: 1px solid #000000;
+  border: 1px solid #0000;
 }
 
 .tr1:hover {
   overflow: visible;
 }
-.tr1:after {
-  border-radius: 5px;
-  content: "";
-  position: absolute;
-  bottom: 1px;
-  left: 1px;
-  width: 100%;
-  height: 100%;
-}
 
 @media (max-width: 768px) {
-  body {
-    height: 100vh;
-    width: 100vw;
-    margin: 0;
-    overflow-y: hidden;
-    overflow-x: hidden;
+  h1 {
+    color: rgb(255, 234, 0);
   }
+
   #show {
-    height: 80vh;
     margin: 5px;
   }
 
@@ -411,13 +404,17 @@ label {
   }
 
   .ticket {
-    height: 100px;
-    width: 450px;
-    margin: 25px; /* Yüksekliği küçült */
+    width: 75vmin;
+    font-size: 1.8rem;
+  }
+
+  #last_words {
+    width: 96%;
+    margin: 1rem;
   }
 
   #save {
-    box-sizing: border-box; /* Border ve padding genişlik içinde */
+    width: 80%;
   }
 
   .add_word {
@@ -429,42 +426,31 @@ label {
   }
 
   .word_paare {
-    display: flex;
     width: 90%;
     height: 18px;
-    padding-inline: 7px;
-    padding-block: 12px;
+
     border: 0;
-    box-sizing: content-box;
   }
 
   .de1 {
-    min-width: 145px;
     font-size: 0.9rem;
-    text-align: left;
-    justify-content: start;
-    padding-inline: 5px;
   }
 
   .tr1 {
     font-size: 0.9rem;
-    padding-inline: 5px;
   }
 }
 
 @media (max-width: 480px) {
-  body {
-    overflow-y: hidden;
-    overflow-x: hidden;
-    height: 100vh;
-    width: 100vw;
-    min-width: 400px;
+  h1 {
+    color: rgb(255, 0, 208);
   }
+
   #show {
+    margin: 0;
+    padding: 0;
     display: flex;
-    height: 80vh;
-    min-width: 100%; /* Tam genişlik */
-    margin: 5px;
+    width: 100%;
   }
 
   .slogan {
@@ -474,10 +460,14 @@ label {
   }
 
   .ticket {
-    height: 100px;
-    width: 300px;
-    margin-block: 20px;
-    font-size: 24px;
+    width: 75vmin;
+    height: 4rem;
+    font-size: 1.5rem;
+  }
+
+  #last_words {
+    width: 96%;
+    margin: 0;
   }
 
   .word_paare {
@@ -485,15 +475,11 @@ label {
     width: 100%;
     height: 18px;
     margin-inline: auto;
-    padding-inline: 5px;
-    padding-block: 12px;
     border: 0;
     box-sizing: border-box;
   }
 
   .de1 {
-    min-width: 120px;
-    text-align: left;
     font-size: 0.8rem;
     font-weight: 400;
     transform: rotate(-1deg);
@@ -501,33 +487,17 @@ label {
 
   .tr1 {
     font-size: 0.8rem;
-    padding-left: 5px;
     font-weight: 350;
-    box-sizing: content-box;
     transform: rotate(-1deg);
   }
 
   #save {
-    margin: 10px;
-    padding: 10px;
-    min-width: 320px;
-    border-radius: 20px;
-  }
-
-  .word_input {
-    padding: 7px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 12px; /* Sola hizala */
+    width: 90%;
+    box-sizing: border-box;
   }
 
   label {
     text-align: left; /* Sola hizala */
     padding-right: 10;
-  }
-
-  .gonder {
-    height: 36px;
-    letter-spacing: 0.6px;
-    line-height: 2;
   }
 }
